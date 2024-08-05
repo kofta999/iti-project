@@ -34,4 +34,8 @@ export const authService = {
     // 100% wouldn't work for production environment and there's no time to create a backend
     localStorage.setItem("auth", currentUser.id!);
   },
+
+  auth: () => {
+    return localStorage.getItem("auth");
+  },
 };
