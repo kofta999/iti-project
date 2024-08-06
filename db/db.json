@@ -1,248 +1,27 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "Alice Johnson",
-      "email": "alice.johnson@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 1,
-          "name": "Task 1",
-          "priority": "High",
-          "dueDate": "2023-10-01",
-          "status": "completed"
-        },
-        {
-          "id": 2,
-          "name": "Task 2",
-          "priority": "Medium",
-          "dueDate": "2023-10-05",
-          "status": "pending"
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Bob Smith",
-      "email": "bob.smith@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 3,
-          "name": "Task 1",
-          "priority": "Low",
-          "dueDate": "2023-10-02",
-          "status": "pending"
-        },
-        {
-          "id": 4,
-          "name": "Task 2",
-          "priority": "High",
-          "dueDate": "2023-10-06",
-          "status": "completed"
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Carol White",
-      "email": "carol.white@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 5,
-          "name": "Task 1",
-          "priority": "Medium",
-          "dueDate": "2023-10-03",
-          "status": "completed"
-        },
-        {
-          "id": 6,
-          "name": "Task 2",
-          "priority": "Low",
-          "dueDate": "2023-10-07",
-          "status": "pending"
-        }
-      ]
-    },
-    {
-      "id": "4",
-      "name": "David Brown",
-      "email": "david.brown@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 7,
-          "name": "Task 1",
-          "priority": "High",
-          "dueDate": "2023-10-04",
-          "status": "pending"
-        },
-        {
-          "id": 8,
-          "name": "Task 2",
-          "priority": "Medium",
-          "dueDate": "2023-10-08",
-          "status": "completed"
-        }
-      ]
-    },
-    {
-      "id": "5",
-      "name": "Eve Davis",
-      "email": "eve.davis@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 9,
-          "name": "Task 1",
-          "priority": "Low",
-          "dueDate": "2023-10-05",
-          "status": "completed"
-        },
-        {
-          "id": 10,
-          "name": "Task 2",
-          "priority": "High",
-          "dueDate": "2023-10-09",
-          "status": "pending"
-        }
-      ]
-    },
-    {
-      "id": "6",
-      "name": "Frank Miller",
-      "email": "frank.miller@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 11,
-          "name": "Task 1",
-          "priority": "Medium",
-          "dueDate": "2023-10-06",
-          "status": "pending"
-        },
-        {
-          "id": 12,
-          "name": "Task 2",
-          "priority": "Low",
-          "dueDate": "2023-10-10",
-          "status": "completed"
-        }
-      ]
-    },
-    {
-      "id": "7",
-      "name": "Grace Wilson",
-      "email": "grace.wilson@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 13,
-          "name": "Task 1",
-          "priority": "High",
-          "dueDate": "2023-10-07",
-          "status": "completed"
-        },
-        {
-          "id": 14,
-          "name": "Task 2",
-          "priority": "Medium",
-          "dueDate": "2023-10-11",
-          "status": "pending"
-        }
-      ]
-    },
-    {
-      "id": "8",
-      "name": "Hank Moore",
-      "email": "hank.moore@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 15,
-          "name": "Task 1",
-          "priority": "Low",
-          "dueDate": "2023-10-08",
-          "status": "pending"
-        },
-        {
-          "id": 16,
-          "name": "Task 2",
-          "priority": "High",
-          "dueDate": "2023-10-12",
-          "status": "completed"
-        }
-      ]
-    },
-    {
-      "id": "9",
-      "name": "Ivy Taylor",
-      "email": "ivy.taylor@example.com",
-      "password": "password123",
-      "tasks": [
-        {
-          "id": 17,
-          "name": "Task 1",
-          "priority": "Medium",
-          "dueDate": "2023-10-09",
-          "status": "completed"
-        },
-        {
-          "id": 18,
-          "name": "Task 2",
-          "priority": "Low",
-          "dueDate": "2023-10-13",
-          "status": "pending"
-        }
-      ]
-    },
-    {
-      "id": "10",
-      "name": "Jack Anderson",
-      "email": "jack.anderson@example.com",
-      "password": "password123",
-      "tasks": [
+      "id": "8cba",
+      "email": "mostafazingi@gmail.com",
+      "name": "wwwww",
+      "password": "111111111",
+      "todos": [
         {
           "id": 19,
           "name": "Task 1",
+          "description": "test",
           "priority": "High",
           "dueDate": "2023-10-10",
-          "status": "pending"
+          "status": true
         },
         {
           "id": 20,
           "name": "Task 2",
           "priority": "Medium",
           "dueDate": "2023-10-14",
-          "status": "completed"
+          "status": false
         }
       ]
-    },
-    {
-      "id": "acbe",
-      "email": "admin@admin.com",
-      "name": "aaaaaa",
-      "password": "111111"
-    },
-    {
-      "id": "2263",
-      "email": "wwwwww@w.com",
-      "name": "wwwww",
-      "password": "111111"
-    },
-    {
-      "id": "b0e8",
-      "email": "sdada@dad.com",
-      "name": "Kofta",
-      "password": "adsdadsada"
-    },
-    {
-      "id": "8cba",
-      "email": "mostafazingi@gmail.com",
-      "name": "wwwww",
-      "password": "111111111"
     }
   ]
 }

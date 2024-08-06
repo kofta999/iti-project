@@ -4,7 +4,7 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import { registerSchema } from "@/schemas";
 import { User } from "@/types";
-import { authService } from "@/services/userService";
+import { authService } from "@/services/authService";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "./ui/use-toast";
 

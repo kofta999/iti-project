@@ -1,4 +1,4 @@
-import { authService } from "@/services/userService";
+import { authService } from "@/services/authService";
 import RoutingError from "./RoutingError";
 import { PropsWithChildren } from "react";
 

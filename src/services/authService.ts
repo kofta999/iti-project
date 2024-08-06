@@ -5,7 +5,7 @@ const API_URL = "http://localhost:3000/users";
 
 export const authService = {
   registerUser: async (user: User) => {
-    const res = await axios.post<User>(API_URL, user);
+    const res = await axios.post<User>(API_URL, { ...user, todos: [] });
 
     if (res.status !== 201) {
       throw new Error("Failed to register, try again");
@@ -37,5 +37,9 @@ export const authService = {
 
   auth: () => {
     return localStorage.getItem("auth");
+  },
+
+  logout: () => {
+    localStorage.removeItem("auth");
   },
 };
