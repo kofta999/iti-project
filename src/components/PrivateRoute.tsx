@@ -1,7 +1,7 @@
 import { authService } from "@/services/authService";
-import RoutingError from "./RoutingError";
 import { PropsWithChildren } from "react";
+import { Navigate } from "react-router-dom";
 
 export default function PrivateRoute({ children }: PropsWithChildren) {
-  return authService.auth() ? children : <RoutingError />;
+  return authService.auth() ? children : <Navigate to={"/login"} replace />;
 }
