@@ -3,6 +3,8 @@ import { todosService } from "@/services/todosService";
 import Todo from "@/components/Todo.tsx";
 import type { Todo as TodoType } from "@/types";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import CreateTodo from "@/components/CreateTodo";
 
 export default function TodoList() {
   const [todos, setTodos] = useState<TodoType[]>([]);
@@ -52,6 +54,21 @@ export default function TodoList() {
     }
   };
 
+  const handleCreate = async (todo: TodoType) => {
+    try {
+      const newTodo = await todosService.createTodo(todo);
+
+      setTodos((prev) => [newTodo, ...prev]);
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: (error as Error).message,
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleDelete = async (id: string) => {
     try {
       await todosService.deleteTodo(id);
@@ -90,6 +107,7 @@ export default function TodoList() {
 
   return (
     <div>
+      <CreateTodo createTodo={handleCreate} />
       {loading && "Loading"}
       {!loading &&
         todos.map((todo) => (

@@ -34,6 +34,25 @@ export const todosService = {
     return res.data;
   },
 
+  createTodo: async (todo: Todo) => {
+    const userId = authService.auth();
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const res = await axios.post<Todo>(API_URL, {
+      ...todo,
+      status: true,
+      userId,
+    });
+
+    if (res.status !== 201) {
+      throw new Error("Error happened while creating task");
+    }
+
+    return res.data;
+  },
+
   markTodo: async (todoId: string) => {
     const userId = authService.auth();
     if (!userId) {

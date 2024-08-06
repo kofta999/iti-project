@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -30,13 +30,19 @@ import { useFormik } from "formik";
 import { todoSchema } from "@/schemas";
 import { InferType } from "yup";
 
+interface EditTodoProps {
+  todo: Todo;
+  updateTodo: (newTodo: Todo) => Promise<void>;
+  title?: string;
+  trigger?: ReactNode;
+}
+
 export default function EditTodo({
   todo,
   updateTodo,
-}: {
-  todo: Todo;
-  updateTodo: (newTodo: Todo) => Promise<void>;
-}) {
+  title = "Edit Todo",
+  trigger,
+}: EditTodoProps) {
   const editTodoSchema = todoSchema.omit(["status", "dueDate"]);
   const [date, setDate] = useState<Date>(new Date(todo.dueDate));
 
@@ -47,28 +53,28 @@ export default function EditTodo({
       id: todo.id,
       userId: todo.userId,
     });
+    resetForm();
     console.log(values);
     console.log("updated todo");
   };
 
-  const { handleSubmit, values, handleChange, setValues } = useFormik({
-    validationSchema: editTodoSchema,
-    initialValues: {
-      name: todo.name,
-      description: todo.description,
-      priority: todo.priority,
-    },
-    onSubmit: handleUpdate,
-  });
+  const { handleSubmit, values, handleChange, setValues, resetForm } =
+    useFormik({
+      validationSchema: editTodoSchema,
+      initialValues: {
+        name: todo.name,
+        description: todo.description,
+        priority: todo.priority,
+      },
+      onSubmit: handleUpdate,
+    });
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Edit />
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger ? trigger : <Edit />}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Todo</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
             Make changes to your todo here. Click save when you're done.
           </DialogDescription>
@@ -147,7 +153,9 @@ export default function EditTodo({
             </Popover>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <DialogTrigger asChild>
+              <Button type="submit">Save changes</Button>
+            </DialogTrigger>
           </DialogFooter>
         </form>
       </DialogContent>
