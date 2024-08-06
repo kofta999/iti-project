@@ -1,10 +1,9 @@
 import axios from "axios";
 import { authService } from "./authService";
-import { User } from "@/types";
+import { Todo } from "@/types";
 
-const API_URL = "http://localhost:3000/users";
+const API_URL = "http://localhost:3000/todos";
 
-// TODO: update fetching logic and make tasks a separete entity in db
 export const todosService = {
   getTodos: async (page: number = 1) => {
     const userId = authService.auth();
@@ -12,17 +11,27 @@ export const todosService = {
       throw new Error("Not authenticated");
     }
 
-    const res = await axios.get<User>(
-      `${API_URL}/${userId}?.todos?_page=${page}`,
-    );
+    const res = await axios.get(`${API_URL}/?userId=${userId}&_page=${page}`);
 
     if (res.status !== 200) {
       throw new Error("Error happened while fetching tasks");
     }
 
     console.log(res.data);
+    // const { data, first, items, last, next, pages, prev } = res.data;
+    const { data } = res.data;
 
-    return res.data.todos!;
+    return data;
+  },
+
+  fetchTodo: async (todoId: string) => {
+    const res = await axios.get<Todo>(`${API_URL}/${todoId}`);
+
+    if (res.status !== 200) {
+      throw new Error("Error happened while fetching task");
+    }
+
+    return res.data;
   },
 
   markTodo: async (todoId: string) => {
@@ -30,49 +39,34 @@ export const todosService = {
     if (!userId) {
       throw new Error("Not authenticated");
     }
+    const todo = await todosService.fetchTodo(todoId);
 
-    const res = await axios.get<User>(`${API_URL}/${userId}`);
-
-    if (res.status !== 200) {
-      throw new Error("Error happened while fetching tasks");
+    if (todo.userId! !== userId) {
+      throw new Error("Not authroized to mark task");
     }
 
-    const user = res.data;
+    const res = await axios.put(`${API_URL}/${todoId}`, {
+      ...todo,
+      status: !todo.status,
+    });
 
-    const newUser = {
-      ...user,
-      todos: user.todos?.map((todo) =>
-        todo.id === todoId ? { ...todo, status: !todo.status } : todo,
-      ),
-    };
-
-    const newRes = await axios.put(`${API_URL}/${userId}`, newUser);
-
-    if (newRes.status !== 200) {
+    if (res.status !== 200) {
       throw new Error("Error happened while marking task");
     }
   },
-
   deleteTodo: async (todoId: string) => {
     const userId = authService.auth();
     if (!userId) {
       throw new Error("Not authenticated");
     }
 
-    const res = await axios.get<User>(`${API_URL}/${userId}`);
+    const todo = await todosService.fetchTodo(todoId);
 
-    if (res.status !== 200) {
-      throw new Error("Error happened while fetching tasks");
+    if (todo.userId! !== userId) {
+      throw new Error("Not authroized to mark task");
     }
 
-    const user = res.data;
-
-    const newUser = {
-      ...user,
-      todos: user.todos?.filter((todo) => todo.id !== todoId),
-    };
-
-    const newRes = await axios.put(`${API_URL}/${userId}`, newUser);
+    const newRes = await axios.delete(`${API_URL}/${todoId}`);
 
     if (newRes.status !== 200) {
       throw new Error("Error happened while deleting task");

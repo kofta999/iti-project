@@ -16,5 +16,5 @@ export const todoSchema = y.object().shape({
   description: y.string().required(),
   priority: todoPriority.required(),
   dueDate: y.date().required(),
-  status: y.boolean()
+  status: y.boolean(),
 });
