@@ -11,7 +11,11 @@ export default function CreateTodo({ createTodo }: CreateTodoProps) {
       todo={{ name: "", description: "", priority: "Low", dueDate: new Date() }}
       updateTodo={createTodo}
       title="Create Todo"
-      trigger={<Button variant={"outline"}>Create</Button>}
+      trigger={
+        <Button variant={"outline"} size={"lg"} className="text-xl">
+          Create
+        </Button>
+      }
     />
   );
 }

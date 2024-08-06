@@ -8,18 +8,10 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "./ui/alert-dialog";
-import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import EditTodo from "./EditTodo";
+import { format } from "date-fns";
+import PriorityBadge from "./PriorityBadge";
+import DeleteTodo from "./DeleteTodo";
 
 interface TodoProps {
   todo: Todo;
@@ -35,45 +27,31 @@ export default function Todo({
   handleUpdate,
 }: TodoProps) {
   return (
-    <Card>
+    <Card className="w-1/3">
       <CardHeader>
-        <CardTitle>
-          <div>{todo.name}</div>{" "}
+        <CardTitle className="flex gap-2 items-center mb-2">
+          <div className="mr-auto">{todo.name}</div>
+
+          <DeleteTodo todo={todo} handleDelete={handleDelete} />
           <EditTodo todo={todo} updateTodo={handleUpdate} />
         </CardTitle>
-        <CardDescription>{todo.priority as string}</CardDescription>
+        <CardDescription>
+          <PriorityBadge variant={todo.priority as string} />
+        </CardDescription>
       </CardHeader>
 
       <CardContent>
-        <p>{todo.description}</p>
+        <p className="text-muted-foreground">{todo.description}</p>
 
-        <h4>{todo.dueDate.toLocaleString()}</h4>
+        <h4 className="text-right font-bold">
+          Due {format(todo.dueDate, "MMM dd, yyyy")}
+        </h4>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="flex justify-end">
         <Button onClick={() => handleMark(todo.id!)}>
           {todo.status ? "Mark Complete" : "Mark incomplete"}
         </Button>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant={"destructive"}>Delete</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete this
-                todo
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={() => handleDelete(todo.id!)}>
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </CardFooter>
     </Card>
   );

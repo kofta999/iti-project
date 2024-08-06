@@ -3,7 +3,6 @@ import { todosService } from "@/services/todosService";
 import Todo from "@/components/Todo.tsx";
 import type { Todo as TodoType } from "@/types";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import CreateTodo from "@/components/CreateTodo";
 
 export default function TodoList() {
@@ -44,6 +43,8 @@ export default function TodoList() {
       await todosService.updateTodo(todo);
 
       setTodos((prev) => prev.map((td) => (td.id === todo.id ? todo : td)));
+
+      toast({ title: "Updated todo successfully" });
     } catch (error) {
       console.error(error);
       toast({
@@ -59,6 +60,7 @@ export default function TodoList() {
       const newTodo = await todosService.createTodo(todo);
 
       setTodos((prev) => [newTodo, ...prev]);
+      toast({ title: "Created todo successfully" });
     } catch (error) {
       console.error(error);
       toast({
@@ -73,7 +75,7 @@ export default function TodoList() {
     try {
       await todosService.deleteTodo(id);
       setTodos((prev) => prev.filter((todo) => todo.id !== id));
-      toast({ title: "Todo deleted successfully" });
+      toast({ title: "Deleted todo successfully" });
     } catch (error) {
       console.error(error);
       toast({
@@ -107,18 +109,26 @@ export default function TodoList() {
 
   return (
     <div>
-      <CreateTodo createTodo={handleCreate} />
+      <div className="flex ">
+        <h1 className="text-3xl font-extrabold mr-auto">Your Todos</h1>
+        <CreateTodo createTodo={handleCreate} />
+      </div>
+      {/* TODO: Add a spinner */}
       {loading && "Loading"}
-      {!loading &&
-        todos.map((todo) => (
-          <Todo
-            handleDelete={handleDelete}
-            handleMark={handleMark}
-            handleUpdate={handleUpdate}
-            key={todo.id}
-            todo={todo}
-          />
-        ))}
+
+      {!loading && (
+        <div className="flex flex-col gap-5 justify-center items-center">
+          {todos.map((todo) => (
+            <Todo
+              handleDelete={handleDelete}
+              handleMark={handleMark}
+              handleUpdate={handleUpdate}
+              key={todo.id}
+              todo={todo}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

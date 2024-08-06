@@ -9,21 +9,13 @@
   ],
   "todos": [
     {
-      "name": "ٍ",
-      "description": "test",
-      "priority": "High",
-      "dueDate": "2024-08-12T21:00:00.000Z",
-      "id": "19",
-      "userId": "8cba",
-      "status": true
-    },
-    {
       "name": "Task 2",
       "description": "adad",
-      "priority": "Low",
+      "priority": "High",
       "dueDate": "2024-08-04T21:00:00.000Z",
       "id": "20",
-      "userId": "8cba"
+      "userId": "8cba",
+      "status": false
     },
     {
       "id": "73a4",
@@ -31,14 +23,6 @@
       "description": "adadad",
       "priority": "Low",
       "dueDate": "2024-08-06T19:24:29.463Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "0eb4",
-      "name": "aaaaaaaa",
-      "description": "aaaaaaaaaaaaaaaaaa",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:25:48.174Z",
       "userId": "8cba"
     },
     {
@@ -80,6 +64,15 @@
       "description": "adad",
       "priority": "Medium",
       "dueDate": "2024-08-06T20:45:15.408Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "cd9b",
+      "name": "Eat food",
+      "description": "eating food is so good etc etc",
+      "priority": "High",
+      "dueDate": "2024-08-06T21:51:24.508Z",
       "userId": "8cba",
       "status": true
     }

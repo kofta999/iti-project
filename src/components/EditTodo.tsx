@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -71,7 +71,9 @@ export default function EditTodo({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>{trigger ? trigger : <Edit />}</DialogTrigger>
+      <DialogTrigger asChild>
+        {trigger ? trigger : <Edit className="cursor-pointer" />}
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -153,6 +155,7 @@ export default function EditTodo({
             </Popover>
           </div>
           <DialogFooter>
+            {/* FIXME: makes dialog close even if it doesnt submit */}
             <DialogTrigger asChild>
               <Button type="submit">Save changes</Button>
             </DialogTrigger>
