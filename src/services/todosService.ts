@@ -54,6 +54,28 @@ export const todosService = {
       throw new Error("Error happened while marking task");
     }
   },
+
+  updateTodo: async (newTodo: Todo) => {
+    const userId = authService.auth();
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+    console.log(newTodo);
+    const todo = await todosService.fetchTodo(newTodo.id!);
+
+    if (todo.userId! !== userId) {
+      throw new Error("Not authroized to update task");
+    }
+
+    const res = await axios.put(`${API_URL}/${todo.id}`, newTodo);
+
+    if (res.status !== 200) {
+      throw new Error("Error happened while updating task");
+    }
+
+    return newTodo;
+  },
+
   deleteTodo: async (todoId: string) => {
     const userId = authService.auth();
     if (!userId) {

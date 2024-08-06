@@ -7,16 +7,14 @@
       "password": "111111111"
     }
   ],
-
   "todos": [
     {
-      "id": "19",
-      "userId": "8cba",
-      "name": "Task 1",
+      "name": "3",
       "description": "test",
       "priority": "High",
-      "dueDate": "2023-10-10",
-      "status": true
+      "dueDate": "2023-10-10T00:00:00.000Z",
+      "id": "19",
+      "userId": "8cba"
     },
     {
       "id": "20",
@@ -28,4 +26,3 @@
     }
   ]
 }
-

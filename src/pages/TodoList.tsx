@@ -37,6 +37,21 @@ export default function TodoList() {
     }
   };
 
+  const handleUpdate = async (todo: TodoType) => {
+    try {
+      await todosService.updateTodo(todo);
+
+      setTodos((prev) => prev.map((td) => (td.id === todo.id ? todo : td)));
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: (error as Error).message,
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleDelete = async (id: string) => {
     try {
       await todosService.deleteTodo(id);
@@ -81,6 +96,7 @@ export default function TodoList() {
           <Todo
             handleDelete={handleDelete}
             handleMark={handleMark}
+            handleUpdate={handleUpdate}
             key={todo.id}
             todo={todo}
           />

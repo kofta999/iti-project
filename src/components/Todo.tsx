@@ -19,20 +19,28 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import EditTodo from "./EditTodo";
 
 interface TodoProps {
   todo: Todo;
-  handleMark: (id: string) => void;
-  handleDelete: (id: string) => void;
+  handleMark: (id: string) => Promise<void>;
+  handleDelete: (id: string) => Promise<void>;
+  handleUpdate: (newTodo: Todo) => Promise<void>;
 }
 
-export default function Todo({ todo, handleMark, handleDelete }: TodoProps) {
-  // const { toast } = useToast();
-
+export default function Todo({
+  todo,
+  handleMark,
+  handleDelete,
+  handleUpdate,
+}: TodoProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{todo.name}</CardTitle>
+        <CardTitle>
+          <div>{todo.name}</div>{" "}
+          <EditTodo todo={todo} updateTodo={handleUpdate} />
+        </CardTitle>
         <CardDescription>{todo.priority as string}</CardDescription>
       </CardHeader>
 
