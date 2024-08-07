@@ -1,8 +1,9 @@
+import { Todo } from "@/types";
 import EditTodo from "./EditTodo";
 import { Button } from "./ui/button";
 
 interface CreateTodoProps {
-  createTodo: any;
+  createTodo: (todo: Todo) => Promise<void>;
 }
 
 export default function CreateTodo({ createTodo }: CreateTodoProps) {

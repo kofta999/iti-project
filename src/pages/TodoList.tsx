@@ -1,14 +1,18 @@
 import { useToast } from "@/components/ui/use-toast";
 import { todosService } from "@/services/todosService";
 import Todo from "@/components/Todo.tsx";
-import type { Todo as TodoType } from "@/types";
+import { PaginationType, type Todo as TodoType } from "@/types";
 import { useEffect, useState } from "react";
 import CreateTodo from "@/components/CreateTodo";
+import PaginationBar from "@/components/PaginationBar";
+import { useSearchParams } from "react-router-dom";
 
 export default function TodoList() {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
+  const [pagination, setPagination] = useState<PaginationType>();
   const { toast } = useToast();
 
   const handleMark = async (id: string) => {
@@ -89,9 +93,11 @@ export default function TodoList() {
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
+      const p = page ? Number(page) : 1;
       try {
-        const todos = await todosService.getTodos(page);
-        setTodos(todos);
+        const res = await todosService.getTodos(p);
+        setPagination({ ...res.pagination, page: p });
+        setTodos(res.data);
       } catch (error) {
         console.log(error);
         toast({
@@ -108,8 +114,8 @@ export default function TodoList() {
   }, [page, toast]);
 
   return (
-    <div>
-      <div className="flex ">
+    <div className="flex flex-col gap-10">
+      <div className="flex">
         <h1 className="text-3xl font-extrabold mr-auto">Your Todos</h1>
         <CreateTodo createTodo={handleCreate} />
       </div>
@@ -117,17 +123,20 @@ export default function TodoList() {
       {loading && "Loading"}
 
       {!loading && (
-        <div className="flex flex-col gap-5 justify-center items-center">
-          {todos.map((todo) => (
-            <Todo
-              handleDelete={handleDelete}
-              handleMark={handleMark}
-              handleUpdate={handleUpdate}
-              key={todo.id}
-              todo={todo}
-            />
-          ))}
-        </div>
+        <>
+          <div className="flex flex-col gap-5 justify-center items-center">
+            {todos.map((todo) => (
+              <Todo
+                handleDelete={handleDelete}
+                handleMark={handleMark}
+                handleUpdate={handleUpdate}
+                key={todo.id}
+                todo={todo}
+              />
+            ))}
+          </div>
+          <PaginationBar pagination={pagination!} />
+        </>
       )}
     </div>
   );

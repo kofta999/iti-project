@@ -17,11 +17,18 @@ export const todosService = {
       throw new Error("Error happened while fetching tasks");
     }
 
-    console.log(res.data);
-    // const { data, first, items, last, next, pages, prev } = res.data;
-    const { data } = res.data;
+    console.log(res);
+    const { data, first, items, last, next, pages, prev } = res.data;
+    const pagination = {
+      firstPage: first,
+      todoCount: items,
+      lastPage: last,
+      nextPage: next,
+      prevPage: prev,
+      totalPages: pages,
+    };
 
-    return data;
+    return { data, pagination };
   },
 
   fetchTodo: async (todoId: string) => {
