@@ -74,6 +74,7 @@ export default function EditTodo({
       },
       onSubmit: handleUpdate,
     });
+  console.log(values);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -47,7 +47,7 @@ export default function RegisterForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-5 w-96" onSubmit={handleSubmit}>
         <div>
           <Label>Name</Label>
           <Input

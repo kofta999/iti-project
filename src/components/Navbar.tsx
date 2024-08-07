@@ -6,6 +6,7 @@ import { useToast } from "./ui/use-toast";
 export default function Navbar() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const auth = authService.auth();
 
   const handleLogout = () => {
     authService.logout();
@@ -14,10 +15,34 @@ export default function Navbar() {
   };
   return (
     <div className="flex justify-center items-center p-4">
-      <h1 className="mr-auto font-bold text-3xl">Todoz</h1>
-      <Button onClick={handleLogout} variant={"ghost"} className="text-xl">
-        Logout
+      <Button
+        onClick={() => navigate("/")}
+        variant={"ghost"}
+        className="mr-auto font-bold text-3xl"
+      >
+        Todoz
       </Button>
+      {auth ? (
+        <>
+          <Button
+            onClick={() => navigate("/todos")}
+            variant={"ghost"}
+            className="text-xl"
+          >
+            My Todos
+          </Button>
+          <Button onClick={handleLogout} variant={"ghost"} className="text-xl">
+            Logout
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button onClick={() => navigate("/login")} variant={"ghost"}>
+            Login
+          </Button>
+          <Button onClick={() => navigate("/register")}>Sign up</Button>
+        </>
+      )}
     </div>
   );
 }

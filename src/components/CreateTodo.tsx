@@ -9,7 +9,7 @@ interface CreateTodoProps {
 export default function CreateTodo({ createTodo }: CreateTodoProps) {
   return (
     <EditTodo
-      todo={{ name: "", description: "", priority: "Low", dueDate: new Date() }}
+      todo={{ name: "", description: "", priority: "0", dueDate: new Date() }}
       updateTodo={createTodo}
       title="Create Todo"
       trigger={

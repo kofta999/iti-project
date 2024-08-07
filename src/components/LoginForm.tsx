@@ -43,40 +43,38 @@ export default function LoginForm() {
     });
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Label>Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            onBlur={handleBlur}
-            value={values.email}
-            onChange={handleChange}
-          />
-          {touched.email && errors.email && (
-            <p className="text-destructive">{errors.email}</p>
-          )}
-        </div>
+    <form className="flex flex-col gap-5 w-96" onSubmit={handleSubmit}>
+      <div>
+        <Label>Email</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          onBlur={handleBlur}
+          value={values.email}
+          onChange={handleChange}
+        />
+        {touched.email && errors.email && (
+          <p className="text-destructive">{errors.email}</p>
+        )}
+      </div>
 
-        <div>
-          <Label>Password</Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            onBlur={handleBlur}
-            value={values.password}
-            onChange={handleChange}
-          />
-          {touched.password && errors.password && (
-            <p className="text-destructive">{errors.password}</p>
-          )}
-        </div>
+      <div>
+        <Label>Password</Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          onBlur={handleBlur}
+          value={values.password}
+          onChange={handleChange}
+        />
+        {touched.password && errors.password && (
+          <p className="text-destructive">{errors.password}</p>
+        )}
+      </div>
 
-        <Button type="submit">Login</Button>
-      </form>
-    </div>
+      <Button type="submit">Login</Button>
+    </form>
   );
 }
