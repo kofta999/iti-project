@@ -6,7 +6,7 @@ const TODO_API_URL = "http://localhost:3000/todos";
 
 export const authService = {
   registerUser: async (user: User) => {
-    const res = await axios.post<User>(API_URL, { ...user });
+    const res = await axios.post<User>(API_URL + "/register", { ...user });
 
     if (res.status !== 201) {
       throw new Error("Failed to register, try again");
@@ -17,24 +17,14 @@ export const authService = {
   },
 
   loginUser: async (user: Omit<User, "name">) => {
-    const res = await axios.get<User[]>(API_URL);
+    const res = await axios.post<User>(API_URL + "/login", user);
 
     if (res.status !== 200) {
       throw new Error("Failed to login, try again");
     }
 
-    // For some reason using query params doesn't get the right user, it only fetches with the first param
-
-    const currentUser = res.data.find(
-      (u) => u.email === user.email && u.password === user.password,
-    );
-
-    if (!currentUser) {
-      throw new Error("User not found, register instead");
-    }
-
     // 100% wouldn't work for production environment and there's no time to create a backend
-    localStorage.setItem("auth", currentUser.id!);
+    localStorage.setItem("auth", res.data.id!);
   },
 
   auth: () => {

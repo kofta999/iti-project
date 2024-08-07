@@ -116,11 +116,11 @@ export default function TodoList() {
     fetch();
   }, [page, filter, sort, toast]);
 
-  const filterTodos = (v: boolean) => {
+  const filterTodos = (v: boolean | null) => {
     setFilter(v);
   };
 
-  const sortTodos = (v: string) => {
+  const sortTodos = (v: string | null) => {
     setSort(v);
   };
 
