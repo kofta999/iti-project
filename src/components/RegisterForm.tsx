@@ -13,7 +13,6 @@ export default function RegisterForm() {
   const { toast } = useToast();
 
   const handleOnSubmit = async (values: User) => {
-    console.log(values);
     try {
       await authService.registerUser(values);
       toast({
@@ -22,7 +21,7 @@ export default function RegisterForm() {
       });
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       toast({
         title: "Error happened while registering",
@@ -42,8 +41,6 @@ export default function RegisterForm() {
       },
       onSubmit: handleOnSubmit,
     });
-
-  console.log(touched, errors);
 
   return (
     <div>

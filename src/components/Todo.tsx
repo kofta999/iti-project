@@ -8,36 +8,35 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import EditTodo from "./EditTodo";
 import { format } from "date-fns";
 import PriorityBadge from "./PriorityBadge";
 import DeleteTodo from "./DeleteTodo";
-import { SquareCheckBig } from "lucide-react";
+import { Edit, SquareCheckBig } from "lucide-react";
 
 interface TodoProps {
   todo: Todo;
   handleMark: (id: string) => Promise<void>;
   handleDelete: (id: string) => Promise<void>;
-  handleUpdate: (newTodo: Todo) => Promise<void>;
+  setCurrent: (newTodo: Todo) => void;
 }
 
 export default function Todo({
   todo,
   handleMark,
   handleDelete,
-  handleUpdate,
+  setCurrent,
 }: TodoProps) {
   return (
-    <Card className="w-1/3">
+    <Card className="w-full sm:w-1/3">
       <CardHeader>
         <CardTitle className="flex gap-2 items-center mb-2">
           <div className="mr-auto">{todo.name}</div>
 
           <DeleteTodo todo={todo} handleDelete={handleDelete} />
-          <EditTodo todo={todo} updateTodo={handleUpdate} />
+          <Edit className="cursor-pointer" onClick={() => setCurrent(todo)} />
         </CardTitle>
         <CardDescription>
-          <PriorityBadge variant={todo.priority as string} />
+          <PriorityBadge variant={todo.priority as 0 | 1 | 2} />
         </CardDescription>
       </CardHeader>
 

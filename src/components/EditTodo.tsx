@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Todo } from "@/types";
-import { CalendarIcon, Edit } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import {
@@ -18,23 +18,31 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { ReactNode, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useFormik } from "formik";
 import { todoSchema } from "@/schemas";
 import { InferType } from "yup";
+import clsx from "clsx";
 
 interface EditTodoProps {
   todo: Todo;
   updateTodo: (newTodo: Todo) => Promise<void>;
   title?: string;
   trigger?: ReactNode;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function EditTodo({
@@ -42,10 +50,11 @@ export default function EditTodo({
   updateTodo,
   title = "Edit Todo",
   trigger,
+  open,
+  setOpen,
 }: EditTodoProps) {
   const editTodoSchema = todoSchema.omit(["status", "dueDate"]);
   const [date, setDate] = useState<Date>(new Date(todo.dueDate));
-  const [open, setOpen] = useState(false);
 
   const handleUpdate = async (values: InferType<typeof editTodoSchema>) => {
     try {
@@ -55,32 +64,39 @@ export default function EditTodo({
         id: todo.id,
         userId: todo.userId,
       });
-      resetForm();
       setOpen(false);
-      console.log(values);
-      console.log("updated todo");
     } catch (error) {
       console.error(error);
     }
   };
 
-  const { handleSubmit, values, handleChange, setValues, resetForm } =
-    useFormik({
-      validationSchema: editTodoSchema,
-      initialValues: {
-        name: todo.name,
-        description: todo.description,
-        priority: todo.priority,
-      },
-      onSubmit: handleUpdate,
-    });
-  console.log(values);
+  const {
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    resetForm,
+    setValues,
+  } = useFormik({
+    validationSchema: editTodoSchema,
+    initialValues: todo,
+    onSubmit: handleUpdate,
+  });
+
+  useEffect(() => {
+    setValues(todo);
+    setDate(new Date(todo.dueDate));
+  }, [todo, setValues]);
+
+  useEffect(() => {
+    resetForm();
+  }, [open, resetForm]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {trigger ? trigger : <Edit className="cursor-pointer" />}
-      </DialogTrigger>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -98,7 +114,13 @@ export default function EditTodo({
               name="name"
               value={values.name}
               onChange={handleChange}
-              className="col-span-3"
+              onBlur={handleBlur}
+              className={clsx([
+                "col-span-3",
+                {
+                  "border-destructive": touched.name && errors.name,
+                },
+              ])}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -110,14 +132,21 @@ export default function EditTodo({
               name="description"
               value={values.description}
               onChange={handleChange}
-              className="col-span-3"
+              onBlur={handleBlur}
+              className={clsx([
+                "col-span-3",
+                {
+                  "border-destructive":
+                    touched.description && errors.description,
+                },
+              ])}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right">Priority</Label>
             <Select
               name="priority"
-              value={(values.priority as number).toString()}
+              value={values.priority.toString()}
               onValueChange={(v) =>
                 setValues((prev) => ({ ...prev, priority: Number(v) }))
               }
@@ -127,7 +156,6 @@ export default function EditTodo({
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Priority</SelectLabel>
                   <SelectItem value="0">Low</SelectItem>
                   <SelectItem value="1">Medium</SelectItem>
                   <SelectItem value="2">High</SelectItem>
@@ -155,7 +183,7 @@ export default function EditTodo({
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={setDate}
+                  onSelect={(e) => setDate(e!)}
                   initialFocus
                 />
               </PopoverContent>

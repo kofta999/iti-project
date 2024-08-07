@@ -17,9 +17,6 @@ export const todosService = {
     if (!userId) {
       throw new Error("Not authenticated");
     }
-    const url = genUrl(userId);
-
-    console.log(url);
 
     const res = await axios.get(genUrl(userId), {
       params: {
@@ -29,8 +26,6 @@ export const todosService = {
         sort: sort,
       },
     });
-
-    console.log(res);
 
     if (res.status !== 200) {
       throw new Error("Error happened while fetching tasks");
@@ -93,7 +88,7 @@ export const todosService = {
       throw new Error("Not authroized to mark task");
     }
 
-    const res = await axios.put(genUrl(userId, todoId), {
+    const res = await axios.put<Todo>(genUrl(userId, todoId), {
       ...todo,
       status: !todo.status,
     });
@@ -101,6 +96,8 @@ export const todosService = {
     if (res.status !== 200) {
       throw new Error("Error happened while marking task");
     }
+
+    return res.data
   },
 
   updateTodo: async (newTodo: Todo) => {
@@ -108,7 +105,6 @@ export const todosService = {
     if (!userId) {
       throw new Error("Not authenticated");
     }
-    console.log(newTodo);
     const todo = await todosService.fetchTodo(newTodo.id!);
 
     if (todo.userId! !== userId) {

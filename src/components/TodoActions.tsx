@@ -4,6 +4,7 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
@@ -20,8 +21,10 @@ export default function TodoActions({
   sortTodos,
 }: TodoActionsProps) {
   return (
-    <div className="flex justify-center items-center gap-10">
-      <h1 className="text-3xl font-extrabold mr-auto">Your Todos:</h1>
+    <div className="flex flex-col sm:flex-row justify-center items-center gap-10">
+      <h1 className="text-3xl font-extrabold sm:mr-auto text-center sm:text-left">
+        Your Todos
+      </h1>
 
       <div className="flex flex-col gap-3">
         <CreateTodo createTodo={handleCreate} />
@@ -31,22 +34,24 @@ export default function TodoActions({
               filterTodos(v === "none" ? null : v === "completed")
             }
           >
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-[160px]">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="none">None</SelectItem>
+              <SelectItem value="none">Status</SelectItem>
+              <SelectSeparator />
               <SelectItem value="completed">Completed</SelectItem>
               <SelectItem value="pending">Pending</SelectItem>
             </SelectContent>
           </Select>
 
           <Select onValueChange={(v) => sortTodos(v === "none" ? null : v)}>
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="">
               <SelectValue placeholder="Sort by.." />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="none">None</SelectItem>
+              <SelectItem value="none">Sort by..</SelectItem>
+              <SelectSeparator />
               <SelectItem value="dueDate">Due Date (Ascending)</SelectItem>
               <SelectItem value="-dueDate">Due Date (Descending)</SelectItem>
               <SelectItem value="priority">Priority (Ascending)</SelectItem>

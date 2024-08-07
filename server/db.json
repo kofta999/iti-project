@@ -9,28 +9,10 @@
   ],
   "todos": [
     {
-      "name": "adad",
-      "description": "adada",
-      "priority": 1,
-      "dueDate": "2024-07-29T21:00:00.000Z",
-      "status": true,
-      "id": "7a7eceb7-fca0-4eab-ac42-71efe0f6306d",
-      "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
-    },
-    {
-      "name": "adad",
-      "description": "adad",
-      "priority": 1,
-      "dueDate": "2024-08-07T16:11:07.919Z",
-      "status": true,
-      "id": "738728a4-648e-4948-8e68-baaa6fb83a8f",
-      "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
-    },
-    {
-      "name": "adad",
+      "name": "dada",
       "description": "aaa",
       "priority": 0,
-      "dueDate": "2024-07-27T21:00:00.000Z",
+      "dueDate": "2024-08-01T21:00:00.000Z",
       "status": true,
       "id": "c70c7f4b-4849-4cb2-b803-bbcd5b16bf50",
       "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
@@ -58,8 +40,26 @@
       "description": "adadadad",
       "priority": 2,
       "dueDate": "2024-05-26T21:00:00.000Z",
-      "status": false,
+      "status": true,
       "id": "60a9b752-92de-4d8c-a146-e65b2f761eb6",
+      "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
+    },
+    {
+      "name": "adad",
+      "description": "adad",
+      "priority": 0,
+      "dueDate": "2024-08-07T16:56:56.381Z",
+      "status": false,
+      "id": "dfb75d3d-6cc3-4812-a80e-5ae089a63146",
+      "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
+    },
+    {
+      "name": "dada",
+      "description": "aaaa",
+      "priority": 0,
+      "dueDate": "2024-08-07T18:10:30.987Z",
+      "status": false,
+      "id": "ce86e1f9-1055-4d0d-912f-69c2822a9e7d",
       "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
     }
   ]

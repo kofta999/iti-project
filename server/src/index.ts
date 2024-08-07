@@ -41,17 +41,6 @@ const app = new Hono();
 
 app.use("*", cors());
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
-
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
-
-const port = 3000;
-console.log(`Server is running on port ${port}`);
-
 // Auth
 app.post("/users/register", async (c) => {
   console.log("dada");
@@ -85,6 +74,7 @@ app.post("/users/login", async (c) => {
 // Todos
 
 app.get("/users/:id/todos", async (c) => {
+  // await new Promise((r) => setTimeout(r, 2000));
   const userId = c.req.param("id");
   const { page, perPage, status, sort } = c.req.query();
   await db.read();
@@ -98,11 +88,11 @@ app.get("/users/:id/todos", async (c) => {
 
   if (sort === "dueDate") {
     todos = todos.sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
-  } else if (sort === "priority") {
+  } else if (sort === "-priority") {
     todos = todos.sort((a, b) => b.priority - a.priority);
   } else if (sort === "-dueDate") {
     todos = todos.sort((a, b) => (a.dueDate < b.dueDate ? 1 : -1));
-  } else if (sort === "-priority") {
+  } else if (sort === "priority") {
     todos = todos.sort((a, b) => a.priority - b.priority);
   }
 
@@ -180,6 +170,9 @@ function calculatePagination(
     page: currentPage,
   };
 }
+
+const port = 3000;
+console.log(`Server is running on port ${port}`);
 
 serve({
   fetch: app.fetch,

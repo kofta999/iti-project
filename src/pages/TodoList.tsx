@@ -3,15 +3,19 @@ import { todosService } from "@/services/todosService";
 import Todo from "@/components/Todo.tsx";
 import { PaginationType, type Todo as TodoType } from "@/types";
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 import PaginationBar from "@/components/PaginationBar";
 import { useSearchParams } from "react-router-dom";
 import TodoActions from "@/components/TodoActions";
+import EditTodo from "@/components/EditTodo";
 
 export default function TodoList() {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<boolean | null>(null);
   const [sort, setSort] = useState<string | null>(null);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [currentTodo, setCurrentTodo] = useState<TodoType | null>(null);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page");
   const [pagination, setPagination] = useState<PaginationType>();
@@ -41,7 +45,12 @@ export default function TodoList() {
 
   const handleMark = async (id: string) => {
     try {
-      await todosService.markTodo(id);
+      const todo = await todosService.markTodo(id);
+      toast({
+        title: todo.status
+          ? "Todo marked as incomplete"
+          : "Todo marked as complete",
+      });
 
       await fetchData();
 
@@ -71,10 +80,11 @@ export default function TodoList() {
   const handleUpdate = async (todo: TodoType) => {
     try {
       await todosService.updateTodo(todo);
-      console.log(todo);
 
       await fetchData();
       // setTodos((prev) => prev.map((td) => (td.id === todo.id ? todo : td)));
+
+      setCurrentTodo(null);
 
       toast({ title: "Updated todo successfully" });
     } catch (error) {
@@ -89,7 +99,7 @@ export default function TodoList() {
 
   const handleCreate = async (todo: TodoType) => {
     try {
-      const newTodo = await todosService.createTodo(todo);
+      await todosService.createTodo(todo);
       await fetchData();
 
       // setTodos((prev) => [newTodo, ...prev]);
@@ -134,16 +144,28 @@ export default function TodoList() {
     setSort(v);
   };
 
+  const openEditDialog = (todo: TodoType) => {
+    setCurrentTodo(todo);
+    setOpenEdit(true);
+  };
+
   return (
     <div className="flex flex-col gap-10">
+      {currentTodo && (
+        <EditTodo
+          updateTodo={handleUpdate}
+          todo={currentTodo}
+          open={openEdit}
+          setOpen={setOpenEdit}
+        />
+      )}
       <TodoActions
         handleCreate={handleCreate}
         filterTodos={filterTodos}
         sortTodos={sortTodos}
       />
 
-      {/* TODO: Add a spinner */}
-      {loading && "Loading"}
+      {loading && <Loader2 className="animate-spin self-center size-16" />}
 
       {!loading && pagination && todos.length > 0 && (
         <>
@@ -152,7 +174,7 @@ export default function TodoList() {
               <Todo
                 handleDelete={handleDelete}
                 handleMark={handleMark}
-                handleUpdate={handleUpdate}
+                setCurrent={openEditDialog}
                 key={todo.id}
                 todo={todo}
               />
