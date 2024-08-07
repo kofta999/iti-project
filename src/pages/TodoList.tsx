@@ -135,7 +135,7 @@ export default function TodoList() {
       {/* TODO: Add a spinner */}
       {loading && "Loading"}
 
-      {!loading && (
+      {!loading && pagination && todos.length > 0 && (
         <>
           <div className="flex flex-col gap-5 justify-center items-center">
             {todos.map((todo) => (

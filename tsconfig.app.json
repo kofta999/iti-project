@@ -9,9 +9,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
@@ -28,7 +26,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
-
   },
-  "include": ["src"]
+  "include": ["src", "db/server.ts"]
 }

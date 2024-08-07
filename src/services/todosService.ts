@@ -2,7 +2,7 @@ import axios from "axios";
 import { authService } from "./authService";
 import { Todo } from "@/types";
 
-const API_URL = "http://localhost:3000/todos";
+const API_URL = "http://localhost:3000/users";
 
 export const todosService = {
   getTodos: async (
@@ -15,12 +15,11 @@ export const todosService = {
       throw new Error("Not authenticated");
     }
 
-    const res = await axios.get(API_URL, {
+    const res = await axios.get(`${API_URL}/${userId}/todos`, {
       params: {
         status: status,
-        userId: userId,
         _page: page,
-        _per_page: 3,
+        _limit: 3,
         _sort: sort && "-" + sort,
       },
     });
@@ -45,7 +44,12 @@ export const todosService = {
   },
 
   fetchTodo: async (todoId: string) => {
-    const res = await axios.get<Todo>(`${API_URL}/${todoId}`);
+    const userId = authService.auth();
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const res = await axios.get<Todo>(`${API_URL}/${userId}/${todoId}`);
 
     if (res.status !== 200) {
       throw new Error("Error happened while fetching task");
@@ -60,10 +64,9 @@ export const todosService = {
       throw new Error("Not authenticated");
     }
 
-    const res = await axios.post<Todo>(API_URL, {
+    const res = await axios.post<Todo>(`${API_URL}/${userId}`, {
       ...todo,
       status: false,
-      userId,
     });
 
     if (res.status !== 201) {
@@ -84,7 +87,7 @@ export const todosService = {
       throw new Error("Not authroized to mark task");
     }
 
-    const res = await axios.put(`${API_URL}/${todoId}`, {
+    const res = await axios.put(`${API_URL}/${userId}/${todoId}`, {
       ...todo,
       status: !todo.status,
     });
@@ -106,7 +109,7 @@ export const todosService = {
       throw new Error("Not authroized to update task");
     }
 
-    const res = await axios.put(`${API_URL}/${todo.id}`, newTodo);
+    const res = await axios.put(`${API_URL}/${userId}/${todo.id}`, newTodo);
 
     if (res.status !== 200) {
       throw new Error("Error happened while updating task");
@@ -127,7 +130,7 @@ export const todosService = {
       throw new Error("Not authroized to mark task");
     }
 
-    const newRes = await axios.delete(`${API_URL}/${todoId}`);
+    const newRes = await axios.delete(`${API_URL}/${userId}/${todoId}`);
 
     if (newRes.status !== 200) {
       throw new Error("Error happened while deleting task");
