@@ -9,7 +9,7 @@ export const registerSchema = y.object().shape({
 
 export const loginSchema = registerSchema.omit(["name"]);
 
-const todoPriority = y.mixed().oneOf(["Low", "Medium", "High"]);
+const todoPriority = y.mixed().oneOf([0, 1, 2]);
 
 export const todoSchema = y.object().shape({
   name: y.string().required(),

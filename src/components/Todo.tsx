@@ -12,6 +12,7 @@ import EditTodo from "./EditTodo";
 import { format } from "date-fns";
 import PriorityBadge from "./PriorityBadge";
 import DeleteTodo from "./DeleteTodo";
+import { SquareCheckBig } from "lucide-react";
 
 interface TodoProps {
   todo: Todo;
@@ -49,8 +50,11 @@ export default function Todo({
       </CardContent>
 
       <CardFooter className="flex justify-end">
-        <Button onClick={() => handleMark(todo.id!)}>
-          {todo.status ? "Mark Complete" : "Mark incomplete"}
+        <Button
+          variant={todo.status ? "default" : "ghost"}
+          onClick={() => handleMark(todo.id!)}
+        >
+          <SquareCheckBig />
         </Button>
       </CardFooter>
     </Card>

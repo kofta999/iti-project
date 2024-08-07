@@ -9,278 +9,112 @@
   ],
   "todos": [
     {
-      "name": "Task 2",
-      "description": "adad",
-      "priority": "High",
-      "dueDate": "2024-08-04T21:00:00.000Z",
-      "id": "20",
+      "name": "Todo 12",
+      "description": "Description for Todo 11",
+      "priority": 1,
+      "dueDate": "2022-12-01T21:00:00.000Z",
+      "id": "1a2b",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "2b3c",
+      "name": "Todo 2",
+      "description": "Description for Todo 2",
+      "priority": 1,
+      "dueDate": "2022-12-02T21:00:00.000Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "name": "Todo 34",
+      "description": "Description for Todo 3",
+      "priority": 0,
+      "dueDate": "2022-12-03T21:00:00.000Z",
+      "id": "3c4d",
       "userId": "8cba",
       "status": false
     },
     {
-      "id": "73a4",
-      "name": "adadad",
+      "id": "4d5e",
+      "name": "Todo 4",
+      "description": "Description for Todo 4",
+      "priority": 2,
+      "dueDate": "2022-12-04T21:00:00.000Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "5e6f",
+      "name": "Todo 5",
+      "description": "Description for Todo 5",
+      "priority": 1,
+      "dueDate": "2022-12-05T21:00:00.000Z",
+      "userId": "8cba",
+      "status": false
+    },
+    {
+      "id": "6f7g",
+      "name": "Todo 6",
+      "description": "Description for Todo 6",
+      "priority": 0,
+      "dueDate": "2022-12-06T21:00:00.000Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "7g8h",
+      "name": "Todo 7",
+      "description": "Description for Todo 7",
+      "priority": 2,
+      "dueDate": "2022-12-07T21:00:00.000Z",
+      "userId": "8cba",
+      "status": false
+    },
+    {
+      "id": "8h9i",
+      "name": "Todo 8",
+      "description": "Description for Todo 8",
+      "priority": 1,
+      "dueDate": "2022-12-08T21:00:00.000Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "9i0j",
+      "name": "Todo 9",
+      "description": "Description for Todo 9",
+      "priority": 0,
+      "dueDate": "2022-12-09T21:00:00.000Z",
+      "userId": "8cba",
+      "status": false
+    },
+    {
+      "id": "0j1k",
+      "name": "Todo 10",
+      "description": "Description for Todo 10",
+      "priority": 2,
+      "dueDate": "2022-12-10T21:00:00.000Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "990f",
+      "name": "Todo 69",
+      "description": "Test 40",
+      "priority": 0,
+      "dueDate": "2024-08-07T11:48:32.456Z",
+      "userId": "8cba",
+      "status": true
+    },
+    {
+      "id": "8dcc",
+      "name": "Todo 20",
       "description": "adadad",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:24:29.463Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "bd09",
-      "name": "test",
-      "description": "adada",
-      "priority": "Medium",
-      "dueDate": "2024-08-13T21:00:00.000Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "4a1e",
-      "name": "adad",
-      "description": "213",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T19:31:10.039Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "ee62",
-      "name": "dada",
-      "description": "dada",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:35:39.367Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "3f12",
-      "name": "test",
-      "description": "test",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:37:15.858Z",
-      "userId": "8cba",
-      "status": false
-    },
-    {
-      "id": "2a3b",
-      "name": "adad2",
-      "description": "adad",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T20:45:15.408Z",
-      "userId": "8cba",
-      "status": true
-    },
-    {
-      "id": "cd9b",
-      "name": "Eat food",
-      "description": "eating food is so good etc etc",
-      "priority": "High",
-      "dueDate": "2024-08-06T21:51:24.508Z",
-      "userId": "8cba",
-      "status": true
-    },
-    {
-      "name": "Task 2",
-      "description": "adad",
-      "priority": "High",
+      "priority": 0,
       "dueDate": "2024-08-04T21:00:00.000Z",
-      "id": "20",
       "userId": "8cba",
       "status": false
-    },
-    {
-      "id": "73a4",
-      "name": "adadad",
-      "description": "adadad",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:24:29.463Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "bd09",
-      "name": "test",
-      "description": "adada",
-      "priority": "Medium",
-      "dueDate": "2024-08-13T21:00:00.000Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "4a1e",
-      "name": "adad",
-      "description": "213",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T19:31:10.039Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "ee62",
-      "name": "dada",
-      "description": "dada",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:35:39.367Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "3f12",
-      "name": "test",
-      "description": "test",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:37:15.858Z",
-      "userId": "8cba",
-      "status": false
-    },
-    {
-      "id": "2a3b",
-      "name": "adad2",
-      "description": "adad",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T20:45:15.408Z",
-      "userId": "8cba",
-      "status": true
-    },
-    {
-      "id": "cd9b",
-      "name": "Eat food",
-      "description": "eating food is so good etc etc",
-      "priority": "High",
-      "dueDate": "2024-08-06T21:51:24.508Z",
-      "userId": "8cba",
-      "status": true
-    },
-
-    {
-      "name": "Task 2",
-      "description": "adad",
-      "priority": "High",
-      "dueDate": "2024-08-04T21:00:00.000Z",
-      "id": "20",
-      "userId": "8cba",
-      "status": false
-    },
-    {
-      "id": "73a4",
-      "name": "adadad",
-      "description": "adadad",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:24:29.463Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "bd09",
-      "name": "test",
-      "description": "adada",
-      "priority": "Medium",
-      "dueDate": "2024-08-13T21:00:00.000Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "4a1e",
-      "name": "adad",
-      "description": "213",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T19:31:10.039Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "ee62",
-      "name": "dada",
-      "description": "dada",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:35:39.367Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "3f12",
-      "name": "test",
-      "description": "test",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:37:15.858Z",
-      "userId": "8cba",
-      "status": false
-    },
-    {
-      "id": "2a3b",
-      "name": "adad2",
-      "description": "adad",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T20:45:15.408Z",
-      "userId": "8cba",
-      "status": true
-    },
-    {
-      "id": "cd9b",
-      "name": "Eat food",
-      "description": "eating food is so good etc etc",
-      "priority": "High",
-      "dueDate": "2024-08-06T21:51:24.508Z",
-      "userId": "8cba",
-      "status": true
-    },
-    {
-      "name": "Task 2",
-      "description": "adad",
-      "priority": "High",
-      "dueDate": "2024-08-04T21:00:00.000Z",
-      "id": "20",
-      "userId": "8cba",
-      "status": false
-    },
-    {
-      "id": "73a4",
-      "name": "adadad",
-      "description": "adadad",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:24:29.463Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "bd09",
-      "name": "test",
-      "description": "adada",
-      "priority": "Medium",
-      "dueDate": "2024-08-13T21:00:00.000Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "4a1e",
-      "name": "adad",
-      "description": "213",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T19:31:10.039Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "ee62",
-      "name": "dada",
-      "description": "dada",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:35:39.367Z",
-      "userId": "8cba"
-    },
-    {
-      "id": "3f12",
-      "name": "test",
-      "description": "test",
-      "priority": "Low",
-      "dueDate": "2024-08-06T19:37:15.858Z",
-      "userId": "8cba",
-      "status": false
-    },
-    {
-      "id": "2a3b",
-      "name": "adad2",
-      "description": "adad",
-      "priority": "Medium",
-      "dueDate": "2024-08-06T20:45:15.408Z",
-      "userId": "8cba",
-      "status": true
-    },
-    {
-      "id": "cd9b",
-      "name": "Eat food",
-      "description": "eating food is so good etc etc",
-      "priority": "High",
-      "dueDate": "2024-08-06T21:51:24.508Z",
-      "userId": "8cba",
-      "status": true
     }
   ]
 }
-

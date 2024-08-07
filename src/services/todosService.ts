@@ -5,19 +5,32 @@ import { Todo } from "@/types";
 const API_URL = "http://localhost:3000/todos";
 
 export const todosService = {
-  getTodos: async (page: number = 1) => {
+  getTodos: async (
+    page: number = 1,
+    status: boolean | null,
+    sort: string | null,
+  ) => {
     const userId = authService.auth();
     if (!userId) {
       throw new Error("Not authenticated");
     }
 
-    const res = await axios.get(`${API_URL}/?userId=${userId}&_page=${page}`);
+    const res = await axios.get(API_URL, {
+      params: {
+        status: status,
+        userId: userId,
+        _page: page,
+        _per_page: 3,
+        _sort: sort && "-" + sort,
+      },
+    });
+
+    console.log(res);
 
     if (res.status !== 200) {
       throw new Error("Error happened while fetching tasks");
     }
 
-    console.log(res);
     const { data, first, items, last, next, pages, prev } = res.data;
     const pagination = {
       firstPage: first,
@@ -49,7 +62,7 @@ export const todosService = {
 
     const res = await axios.post<Todo>(API_URL, {
       ...todo,
-      status: true,
+      status: false,
       userId,
     });
 

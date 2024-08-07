@@ -1,14 +1,13 @@
 import { Badge } from "./ui/badge";
 
-export default function PriorityBadge({ variant }: { variant: string }) {
-  const v =
-    variant === "Low"
-      ? "low"
-      : variant === "Medium"
-        ? "medium"
-        : variant === "High"
-          ? "high"
-          : "default";
+export default function PriorityBadge({ variant }: { variant: 0 | 1 | 2 }) {
+  const priorites = {
+    0: "low",
+    1: "medium",
+    2: "high",
+  } as const;
 
-  return <Badge variant={v}>{variant}</Badge>;
+  const v = priorites[variant];
+
+  return <Badge variant={v}>{v}</Badge>;
 }

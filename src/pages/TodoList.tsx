@@ -3,13 +3,15 @@ import { todosService } from "@/services/todosService";
 import Todo from "@/components/Todo.tsx";
 import { PaginationType, type Todo as TodoType } from "@/types";
 import { useEffect, useState } from "react";
-import CreateTodo from "@/components/CreateTodo";
 import PaginationBar from "@/components/PaginationBar";
 import { useSearchParams } from "react-router-dom";
+import TodoActions from "@/components/TodoActions";
 
 export default function TodoList() {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<boolean | null>(null);
+  const [sort, setSort] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page");
   const [pagination, setPagination] = useState<PaginationType>();
@@ -24,8 +26,8 @@ export default function TodoList() {
           if (todo.id === id) {
             toast({
               title: todo.status
-                ? "Todo marked as complete"
-                : "Todo marked as incomplete",
+                ? "Todo marked as incomplete"
+                : "Todo marked as complete",
             });
             return { ...todo, status: !todo.status };
           }
@@ -45,6 +47,7 @@ export default function TodoList() {
   const handleUpdate = async (todo: TodoType) => {
     try {
       await todosService.updateTodo(todo);
+      console.log(todo);
 
       setTodos((prev) => prev.map((td) => (td.id === todo.id ? todo : td)));
 
@@ -95,7 +98,7 @@ export default function TodoList() {
       setLoading(true);
       const p = page ? Number(page) : 1;
       try {
-        const res = await todosService.getTodos(p);
+        const res = await todosService.getTodos(p, filter, sort);
         setPagination({ ...res.pagination, page: p });
         setTodos(res.data);
       } catch (error) {
@@ -111,14 +114,24 @@ export default function TodoList() {
     };
 
     fetch();
-  }, [page, toast]);
+  }, [page, filter, sort, toast]);
+
+  const filterTodos = (v: boolean) => {
+    setFilter(v);
+  };
+
+  const sortTodos = (v: string) => {
+    setSort(v);
+  };
 
   return (
     <div className="flex flex-col gap-10">
-      <div className="flex">
-        <h1 className="text-3xl font-extrabold mr-auto">Your Todos</h1>
-        <CreateTodo createTodo={handleCreate} />
-      </div>
+      <TodoActions
+        handleCreate={handleCreate}
+        filterTodos={filterTodos}
+        sortTodos={sortTodos}
+      />
+
       {/* TODO: Add a spinner */}
       {loading && "Loading"}
 

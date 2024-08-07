@@ -45,17 +45,23 @@ export default function EditTodo({
 }: EditTodoProps) {
   const editTodoSchema = todoSchema.omit(["status", "dueDate"]);
   const [date, setDate] = useState<Date>(new Date(todo.dueDate));
+  const [open, setOpen] = useState(false);
 
   const handleUpdate = async (values: InferType<typeof editTodoSchema>) => {
-    await updateTodo({
-      ...values,
-      dueDate: date,
-      id: todo.id,
-      userId: todo.userId,
-    });
-    resetForm();
-    console.log(values);
-    console.log("updated todo");
+    try {
+      await updateTodo({
+        ...values,
+        dueDate: date,
+        id: todo.id,
+        userId: todo.userId,
+      });
+      resetForm();
+      setOpen(false);
+      console.log(values);
+      console.log("updated todo");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const { handleSubmit, values, handleChange, setValues, resetForm } =
@@ -70,7 +76,7 @@ export default function EditTodo({
     });
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger ? trigger : <Edit className="cursor-pointer" />}
       </DialogTrigger>
@@ -110,9 +116,9 @@ export default function EditTodo({
             <Label className="text-right">Priority</Label>
             <Select
               name="priority"
-              value={values.priority as string}
+              value={(values.priority as number).toString()}
               onValueChange={(v) =>
-                setValues((prev) => ({ ...prev, priority: v }))
+                setValues((prev) => ({ ...prev, priority: Number(v) }))
               }
             >
               <SelectTrigger className="w-[180px]">
@@ -121,9 +127,9 @@ export default function EditTodo({
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Priority</SelectLabel>
-                  <SelectItem value="Low">Low</SelectItem>
-                  <SelectItem value="Medium">Medium</SelectItem>
-                  <SelectItem value="High">High</SelectItem>
+                  <SelectItem value="0">Low</SelectItem>
+                  <SelectItem value="1">Medium</SelectItem>
+                  <SelectItem value="2">High</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -155,10 +161,7 @@ export default function EditTodo({
             </Popover>
           </div>
           <DialogFooter>
-            {/* FIXME: makes dialog close even if it doesnt submit */}
-            <DialogTrigger asChild>
-              <Button type="submit">Save changes</Button>
-            </DialogTrigger>
+            <Button type="submit">Save changes</Button>
           </DialogFooter>
         </form>
       </DialogContent>

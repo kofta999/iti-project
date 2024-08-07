@@ -11,11 +11,12 @@ import RoutingError from "./components/RoutingError";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import TodoList from "./pages/TodoList";
+import Layout from "./pages/Layout";
 
 export default function Router() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <>
+      <Route path="/" Component={Layout}>
         <Route path="/" Component={Landing} />
 
         {/* Public Routes */}
@@ -47,7 +48,7 @@ export default function Router() {
         />
 
         <Route path="*" Component={RoutingError} />
-      </>,
+      </Route>,
     ),
   );
   return <RouterProvider router={router} />;
