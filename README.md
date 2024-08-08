@@ -75,7 +75,7 @@ npm install
 
 ```sh
 cd server
-npm start
+npm run dev
 ```
 
 2. Start the client:
@@ -95,7 +95,6 @@ npm run dev
 
 ### Server
 
-- `npm start`: Start the server
 - `npm run dev`: Start the server in development mode
 
 ## API Endpoints
