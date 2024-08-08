@@ -1,28 +1,26 @@
 import { Todo } from "@/types";
-import EditTodo from "./EditTodo";
 import { Button } from "./ui/button";
-import { useState } from "react";
 
 interface CreateTodoProps {
-  createTodo: (todo: Todo) => Promise<void>;
-  loading: boolean;
+  setCurrent: (newTodo: Todo) => void;
 }
 
-export default function CreateTodo({ createTodo, loading }: CreateTodoProps) {
-  const [open, setOpen] = useState(false);
+export default function CreateTodo({ setCurrent }: CreateTodoProps) {
+  const emptyTodo: Todo = {
+    name: "",
+    priority: 0,
+    description: "",
+    id: "",
+    dueDate: new Date(),
+  };
   return (
-    <EditTodo
-      loading={loading}
-      todo={{ name: "", description: "", priority: 0, dueDate: new Date() }}
-      updateTodo={createTodo}
-      title="Create Todo"
-      trigger={
-        <Button variant={"outline"} size={"lg"} className="text-xl">
-          Create
-        </Button>
-      }
-      open={open}
-      setOpen={setOpen}
-    />
+    <Button
+      onClick={() => setCurrent(emptyTodo)}
+      variant={"outline"}
+      size={"lg"}
+      className="text-xl"
+    >
+      Create
+    </Button>
   );
 }

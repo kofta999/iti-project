@@ -74,7 +74,7 @@ app.post("/users/login", async (c) => {
 // Todos
 
 app.get("/users/:id/todos", async (c) => {
-  // await new Promise((r) => setTimeout(r, 2000));
+  await new Promise((r) => setTimeout(r, 2000));
   const userId = c.req.param("id");
   const { page = 1, perPage = 3, status, sort } = c.req.query();
   await db.read();
@@ -146,6 +146,7 @@ app.put("/users/:userId/todos/:todoId", async (c) => {
 });
 
 app.delete("/users/:userId/todos/:todoId", async (c) => {
+  await new Promise((r) => setTimeout(r, 2000));
   const { todoId } = c.req.param();
 
   const todos = db.data.todos.filter((todo) => todo.id !== todoId);

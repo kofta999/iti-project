@@ -47,6 +47,7 @@ export default function TodoList() {
 
   const handleMark = async (id: string) => {
     try {
+      setLoading(true);
       const newTodo = await todosService.markTodo(id);
       await fetchData();
 
@@ -68,42 +69,26 @@ export default function TodoList() {
         description: "Please try again",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleUpdate = async (todo: TodoType) => {
     try {
       setLoading(true);
-      await todosService.updateTodo(todo);
+      const isNew = !todo.id;
 
-      // setTodos((prev) =>
-      //   prev.map((td) => (td.id === newTodo.id ? newTodo : td)),
-      // );
+      if (isNew) {
+        await todosService.createTodo(todo);
+        toast({ title: "Created todo successfully" });
+      } else {
+        await todosService.updateTodo(todo);
+        toast({ title: "Updated todo successfully" });
+      }
 
       await fetchData();
-
       setCurrentTodo(null);
-
-      toast({ title: "Updated todo successfully" });
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: (error as Error).message,
-        description: "Please try again",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCreate = async (todo: TodoType) => {
-    setLoading(true);
-    try {
-      await todosService.createTodo(todo);
-
-      await fetchData();
-      toast({ title: "Created todo successfully" });
     } catch (error) {
       console.error(error);
       toast({
@@ -121,7 +106,6 @@ export default function TodoList() {
       await todosService.deleteTodo(id);
 
       await fetchData();
-      // setTodos((prev) => prev.filter((todo) => todo.id !== id));
       toast({ title: "Deleted todo successfully" });
     } catch (error) {
       console.error(error);
@@ -147,10 +131,10 @@ export default function TodoList() {
   };
 
   const openEditDialog = (todo: TodoType) => {
-    console.log(todo);
     setCurrentTodo(todo);
     setOpenEdit(true);
   };
+  console.log(loading, open);
 
   return (
     <div className="flex flex-col gap-10">
@@ -164,17 +148,17 @@ export default function TodoList() {
         />
       )}
       <TodoActions
-        handleCreate={handleCreate}
         filterTodos={filterTodos}
         sortTodos={sortTodos}
+        setCurrent={openEditDialog}
         loading={loading}
       />
 
-      {loading && !open && (
+      {loading && !openEdit && (
         <Loader2 className="animate-spin self-center size-16" />
       )}
 
-      {pagination && todos.length > 0 && (
+      {!loading && pagination && todos.length > 0 && (
         <>
           <div className="flex flex-col gap-5 justify-center items-center">
             {todos.map((todo) => (

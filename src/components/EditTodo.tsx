@@ -95,14 +95,11 @@ export default function EditTodo({
       priority: Number(todo.priority),
     });
     setDate(new Date(todo.dueDate));
-  }, [todo, setValues]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todo]);
 
-  // useEffect(() => {
-  //   resetForm();
-  // }, [open, resetForm]);
 
   const reset = (v: boolean) => {
-    console.log("here");
     resetForm();
     return setOpen(v);
   };

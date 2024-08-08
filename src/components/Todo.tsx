@@ -11,7 +11,8 @@ import { Button } from "./ui/button";
 import { format } from "date-fns";
 import PriorityBadge from "./PriorityBadge";
 import DeleteTodo from "./DeleteTodo";
-import { Edit, SquareCheckBig } from "lucide-react";
+import { Edit, Loader2, SquareCheckBig } from "lucide-react";
+import { useState } from "react";
 
 interface TodoProps {
   todo: Todo;
@@ -26,13 +27,31 @@ export default function Todo({
   handleDelete,
   setCurrent,
 }: TodoProps) {
+  const [loading, setLoading] = useState(false);
+
+  const handleMarkTodo = async () => {
+    setLoading(true);
+    await handleMark(todo.id!);
+    setLoading(false);
+  };
+
+  const handleDeleteTodo = async () => {
+    setLoading(true);
+    await handleDelete(todo.id!);
+    setLoading(false);
+  };
+
   return (
     <Card className="w-full sm:w-1/3">
       <CardHeader>
         <CardTitle className="flex gap-2 items-center mb-2">
           <div className="mr-auto">{todo.name}</div>
 
-          <DeleteTodo todo={todo} handleDelete={handleDelete} />
+          <DeleteTodo
+            todo={todo}
+            handleDelete={handleDeleteTodo}
+            loading={loading}
+          />
           <Edit className="cursor-pointer" onClick={() => setCurrent(todo)} />
         </CardTitle>
         <CardDescription>
@@ -51,9 +70,10 @@ export default function Todo({
       <CardFooter className="flex justify-end">
         <Button
           variant={todo.status ? "default" : "ghost"}
-          onClick={() => handleMark(todo.id!)}
+          onClick={handleMarkTodo}
+          disabled={loading}
         >
-          <SquareCheckBig />
+          {loading ? <Loader2 className="animate-spin" /> : <SquareCheckBig />}
         </Button>
       </CardFooter>
     </Card>

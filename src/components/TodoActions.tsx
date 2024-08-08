@@ -10,17 +10,16 @@ import {
 } from "./ui/select";
 
 interface TodoActionsProps {
-  handleCreate: (todo: Todo) => Promise<void>;
   filterTodos: (v: boolean | null) => void;
   sortTodos: (v: string | null) => void;
+  setCurrent: (newTodo: Todo) => void;
   loading: boolean;
 }
 
 export default function TodoActions({
-  handleCreate,
+  setCurrent,
   filterTodos,
   sortTodos,
-  loading,
 }: TodoActionsProps) {
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center gap-10">
@@ -29,7 +28,7 @@ export default function TodoActions({
       </h1>
 
       <div className="flex flex-col gap-3">
-        <CreateTodo loading={loading} createTodo={handleCreate} />
+        <CreateTodo setCurrent={setCurrent} />
         <div className="flex gap-3">
           <Select
             onValueChange={(v) =>

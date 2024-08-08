@@ -1,7 +1,6 @@
 import { Todo } from "@/types";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -10,17 +9,26 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { SquareX } from "lucide-react";
+import { Loader2, SquareX } from "lucide-react";
+import { Button } from "./ui/button";
+import { useState } from "react";
 
 export default function DeleteTodo({
   handleDelete,
   todo,
+  loading,
 }: {
   handleDelete: (id: string) => Promise<void>;
   todo: Todo;
+  loading: boolean;
 }) {
+  const [open, setOpen] = useState(false);
+  const handle = async () => {
+    await handleDelete(todo.id!);
+    setOpen(false);
+  };
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <SquareX className="cursor-pointer text-destructive" />
       </AlertDialogTrigger>
@@ -33,9 +41,17 @@ export default function DeleteTodo({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => handleDelete(todo.id!)}>
-            Continue
-          </AlertDialogAction>
+
+          <Button variant={"destructive"} disabled={loading} onClick={handle}>
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                Please wait...
+              </>
+            ) : (
+              "Continue"
+            )}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
