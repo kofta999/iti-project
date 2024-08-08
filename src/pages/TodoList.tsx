@@ -11,7 +11,7 @@ import EditTodo from "@/components/EditTodo";
 
 export default function TodoList() {
   const [todos, setTodos] = useState<TodoType[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<boolean | null>(null);
   const [sort, setSort] = useState<string | null>(null);
   const [openEdit, setOpenEdit] = useState(false);
@@ -25,7 +25,6 @@ export default function TodoList() {
   // updating the local state won't respect server-side filtering
   // a little slower yeah, but it being in sync is more important imo
   const fetchData = async () => {
-    setLoading(true);
     const p = page ? Number(page) : 1;
     try {
       const res = await todosService.getTodos(p, filter, sort);
@@ -38,24 +37,13 @@ export default function TodoList() {
         description: "Please try again",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
-  console.log({ todos });
-
   const handleMark = async (id: string) => {
     try {
-      setLoading(true);
       const newTodo = await todosService.markTodo(id);
       await fetchData();
-
-      // if (filter === null) {
-      //   setTodos((prev) => prev.map((td) => (td.id === id ? newTodo : td)));
-      // } else if (newTodo.status !== filter) {
-      //   setTodos((prev) => prev.filter((td) => td.id !== newTodo.id));
-      // }
 
       toast({
         title: newTodo.status
@@ -69,8 +57,6 @@ export default function TodoList() {
         description: "Please try again",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -118,7 +104,25 @@ export default function TodoList() {
   };
 
   useEffect(() => {
-    fetchData();
+    const fetch = async () => {
+      setLoading(true);
+      const p = page ? Number(page) : 1;
+      try {
+        const res = await todosService.getTodos(p, filter, sort);
+        setPagination({ ...res.pagination, page: p });
+        setTodos(res.data);
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: (error as Error).message,
+          description: "Please try again",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, filter, sort, toast]);
 
@@ -134,7 +138,6 @@ export default function TodoList() {
     setCurrentTodo(todo);
     setOpenEdit(true);
   };
-  console.log(loading, open);
 
   return (
     <div className="flex flex-col gap-10">

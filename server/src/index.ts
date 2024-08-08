@@ -74,7 +74,7 @@ app.post("/users/login", async (c) => {
 // Todos
 
 app.get("/users/:id/todos", async (c) => {
-  await new Promise((r) => setTimeout(r, 2000));
+  await new Promise((r) => setTimeout(r, 1000));
   const userId = c.req.param("id");
   const { page = 1, perPage = 3, status, sort } = c.req.query();
   await db.read();
