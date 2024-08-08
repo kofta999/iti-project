@@ -57,7 +57,6 @@ export default function EditTodo({
 }: EditTodoProps) {
   const editTodoSchema = todoSchema.omit(["status", "dueDate"]);
   const [date, setDate] = useState<Date>(new Date(todo.dueDate));
-  console.log(todo);
 
   const handleUpdate = async (values: InferType<typeof editTodoSchema>) => {
     try {

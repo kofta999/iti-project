@@ -7,14 +7,17 @@ import { User } from "@/types";
 import { authService } from "@/services/authService";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "./ui/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
   const handleOnSubmit = async (values: Omit<User, "name">) => {
-    console.log(values);
     try {
+      setLoading(true);
       await authService.loginUser(values);
       toast({
         title: "Logged in successfully",
@@ -29,6 +32,8 @@ export default function LoginForm() {
         description: (error as Error).message,
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,7 +79,16 @@ export default function LoginForm() {
         )}
       </div>
 
-      <Button type="submit">Login</Button>
+      <Button disabled={loading} type="submit">
+        {loading ? (
+          <>
+            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+            Please wait
+          </>
+        ) : (
+          "Login"
+        )}
+      </Button>
     </form>
   );
 }

@@ -7,13 +7,17 @@ import { User } from "@/types";
 import { authService } from "@/services/authService";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "./ui/use-toast";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const handleOnSubmit = async (values: User) => {
     try {
+      setLoading(true);
       await authService.registerUser(values);
       toast({
         title: "Created user successfully!",
@@ -28,6 +32,8 @@ export default function RegisterForm() {
         description: "Please try again later",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +96,16 @@ export default function RegisterForm() {
           )}
         </div>
 
-        <Button type="submit">Register</Button>
+        <Button disabled={loading} type="submit">
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+              Please wait
+            </>
+          ) : (
+            "Register"
+          )}
+        </Button>
       </form>
     </div>
   );

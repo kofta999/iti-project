@@ -60,7 +60,7 @@ app.post("/users/login", async (c) => {
   const data = db.data;
 
   const foundUser = data.users.find(
-    (u) => u.email === user.email && u.password === user.password,
+    (u) => u.email === user.email && u.password === user.password
   );
 
   if (!foundUser) {
@@ -135,7 +135,7 @@ app.put("/users/:userId/todos/:todoId", async (c) => {
   const todos = db.data.todos.map((todo) =>
     todo.id === todoId && todo.userId === userId
       ? { ...todo, ...newTodo }
-      : todo,
+      : todo
   );
 
   db.data.todos = todos;
@@ -159,7 +159,7 @@ app.delete("/users/:userId/todos/:todoId", async (c) => {
 function calculatePagination(
   items: Todo[],
   currentPage: number,
-  itemsPerPage: number = 10,
+  itemsPerPage: number = 10
 ): PaginationType {
   const todoCount = items.length;
   const totalPages = Math.ceil(todoCount / itemsPerPage);

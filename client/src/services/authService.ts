@@ -2,7 +2,6 @@ import { User } from "@/types";
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/users";
-const TODO_API_URL = "http://localhost:3000/todos";
 
 export const authService = {
   registerUser: async (user: User) => {
@@ -12,7 +11,6 @@ export const authService = {
       throw new Error("Failed to register, try again");
     }
 
-    await axios.post<User>(TODO_API_URL, { [res.data.id!]: [] });
     return res.data;
   },
 

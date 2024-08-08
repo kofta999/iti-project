@@ -11,6 +11,36 @@
       "name": "User 2",
       "password": "password2",
       "id": "7d7144c6-5aaf-41cb-a926-76af7442f77f"
+    },
+    {
+      "email": "user5@example.com",
+      "name": "Test1",
+      "password": "password1",
+      "id": "0b737440-9165-4065-b09f-dc7caca0f500"
+    },
+    {
+      "email": "user5@example.com",
+      "name": "adadadada",
+      "password": "password1",
+      "id": "a20ba796-90f7-4b0e-97d5-3499e884d51e"
+    },
+    {
+      "email": "user5@example.com",
+      "name": "adadadada",
+      "password": "password1",
+      "id": "0401fb9b-6a54-478d-9833-e4265484c4af"
+    },
+    {
+      "email": "user7@example.com",
+      "name": "adadada",
+      "password": "password1",
+      "id": "08ee004e-8c9b-4bc6-9feb-ee27dfdb29e6"
+    },
+    {
+      "email": "userdad5@example.com",
+      "name": "adadad",
+      "password": "password1",
+      "id": "960c50cc-03d3-47ab-a7a5-f84240319203"
     }
   ],
   "todos": [
@@ -220,6 +250,24 @@
       "id": "c48278d5-8fa6-4f01-8975-ddde614f3a0a",
       "status": false,
       "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
+    },
+    {
+      "name": "adadadad",
+      "description": "adadad",
+      "priority": 0,
+      "dueDate": "2024-08-28T21:00:00.000Z",
+      "id": "c2ba7a23-f8d1-43c9-8cca-6f6a2c8b2ab8",
+      "status": false,
+      "userId": "0b737440-9165-4065-b09f-dc7caca0f500"
+    },
+    {
+      "name": "adada",
+      "description": "adada",
+      "priority": 1,
+      "dueDate": "2024-08-08T16:44:42.786Z",
+      "id": "3df939ab-2dcf-4463-ade6-4c8dbfe59303",
+      "status": true,
+      "userId": "0b737440-9165-4065-b09f-dc7caca0f500"
     }
   ]
 }
