@@ -1,10 +1,10 @@
-# Project Name
+# Todoz
 
 ## Overview
 
-This project is a full-stack application built with React, TypeScript, and Vite on the client side, and Node.js on the server side. It includes user authentication and a to-do list feature.
+This project is a full-stack application built with React, TypeScript, and Vite on the client side, and Node.js, Hono on the server side. It includes user authentication and a to-do list.
 
-
+![image](https://github.com/user-attachments/assets/7695f914-47dc-499e-8409-03e9f55a9ee5)
 
 ## Table of Contents
 
@@ -56,7 +56,7 @@ server/
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/iti-project.git
+git clone https://github.com/kofta999/iti-project.git
 cd iti-project
 ```
 
