@@ -56,7 +56,7 @@ server/
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/iti-project.git
+git clone https://github.com/kofta999/iti-project.git
 cd iti-project
 ```
 
