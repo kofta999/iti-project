@@ -15,21 +15,12 @@
   ],
   "todos": [
     {
-      "name": "Task 717",
+      "name": "Task 7171",
       "description": "Task 7 for User 1",
       "priority": 1,
       "dueDate": "2024-08-07T21:00:00.000Z",
       "status": true,
       "id": "3baf364a-fca1-4066-a589-b2adddfb9ac4",
-      "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
-    },
-    {
-      "name": "Task 8",
-      "description": "Task 8 for User 1",
-      "priority": 1,
-      "dueDate": "2024-08-08T21:00:00.000Z",
-      "status": true,
-      "id": "2baf364a-fca1-4066-a589-b2adddfb9ac4",
       "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
     },
     {
@@ -154,7 +145,7 @@
       "description": "Task 5 for User 1",
       "priority": 0,
       "dueDate": "2024-08-08T09:24:55.309Z",
-      "status": false,
+      "status": true,
       "id": "0a96b2b3-ffad-4c89-b710-f4283064df7a",
       "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
     },
@@ -209,6 +200,15 @@
       "priority": 2,
       "dueDate": "2024-07-28T21:00:00.000Z",
       "id": "bbd72105-1473-4f33-9241-fd3f194e0288",
+      "status": false,
+      "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
+    },
+    {
+      "name": "ada",
+      "description": "dad",
+      "priority": 2,
+      "dueDate": "2024-08-08T11:06:19.616Z",
+      "id": "99bfbd43-9402-47ca-b130-ced3f4809345",
       "status": false,
       "userId": "9d7144c6-5aaf-41cb-a926-76af7442f77f"
     }
