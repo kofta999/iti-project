@@ -20,7 +20,7 @@ export default function Landing() {
           <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <div>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Simplify your life with Todo
+                Simplify your life with Todoz
               </h1>
               <p className="mt-4 text-muted-foreground md:text-xl">
                 Stay organized and on top of your tasks with our intuitive todo
