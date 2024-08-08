@@ -150,6 +150,7 @@ export default function TodoList() {
           setOpen={setOpenEdit}
         />
       )}
+
       <TodoActions
         filterTodos={filterTodos}
         sortTodos={sortTodos}
@@ -161,7 +162,8 @@ export default function TodoList() {
         <Loader2 className="animate-spin self-center size-16" />
       )}
 
-      {!loading && pagination && todos.length > 0 && (
+      {((todos.length > 0 && !loading && pagination) ||
+        (loading && openEdit)) && (
         <>
           <div className="flex flex-col gap-5 justify-center items-center">
             {todos.map((todo) => (

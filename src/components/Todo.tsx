@@ -18,14 +18,14 @@ interface TodoProps {
   todo: Todo;
   handleMark: (id: string) => Promise<void>;
   handleDelete: (id: string) => Promise<void>;
-  setCurrent: (newTodo: Todo) => void;
+  openEditDialog: (newTodo: Todo) => void;
 }
 
 export default function Todo({
   todo,
   handleMark,
   handleDelete,
-  setCurrent,
+  openEditDialog,
 }: TodoProps) {
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,10 @@ export default function Todo({
             handleDelete={handleDeleteTodo}
             loading={loading}
           />
-          <Edit className="cursor-pointer" onClick={() => setCurrent(todo)} />
+          <Edit
+            className="cursor-pointer"
+            onClick={() => openEditDialog(todo)}
+          />
         </CardTitle>
         <CardDescription>
           <PriorityBadge variant={todo.priority as 0 | 1 | 2} />
