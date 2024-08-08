@@ -43,30 +43,24 @@ export default function TodoList() {
     }
   };
 
+  console.log({ todos });
+
   const handleMark = async (id: string) => {
     try {
-      const todo = await todosService.markTodo(id);
-      toast({
-        title: todo.status
-          ? "Todo marked as incomplete"
-          : "Todo marked as complete",
-      });
-
+      const newTodo = await todosService.markTodo(id);
       await fetchData();
 
-      // setTodos((prev) =>
-      //   prev.map((todo) => {
-      //     if (todo.id === id) {
-      //       toast({
-      //         title: todo.status
-      //           ? "Todo marked as incomplete"
-      //           : "Todo marked as complete",
-      //       });
-      //       return { ...todo, status: !todo.status };
-      //     }
-      //     return todo;
-      //   }),
-      //)
+      // if (filter === null) {
+      //   setTodos((prev) => prev.map((td) => (td.id === id ? newTodo : td)));
+      // } else if (newTodo.status !== filter) {
+      //   setTodos((prev) => prev.filter((td) => td.id !== newTodo.id));
+      // }
+
+      toast({
+        title: newTodo.status
+          ? "Todo marked as complete"
+          : "Todo marked as incomplete",
+      });
     } catch (error) {
       console.error(error);
       toast({
@@ -79,10 +73,14 @@ export default function TodoList() {
 
   const handleUpdate = async (todo: TodoType) => {
     try {
+      setLoading(true);
       await todosService.updateTodo(todo);
 
+      // setTodos((prev) =>
+      //   prev.map((td) => (td.id === newTodo.id ? newTodo : td)),
+      // );
+
       await fetchData();
-      // setTodos((prev) => prev.map((td) => (td.id === todo.id ? todo : td)));
 
       setCurrentTodo(null);
 
@@ -94,15 +92,17 @@ export default function TodoList() {
         description: "Please try again",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCreate = async (todo: TodoType) => {
+    setLoading(true);
     try {
       await todosService.createTodo(todo);
-      await fetchData();
 
-      // setTodos((prev) => [newTodo, ...prev]);
+      await fetchData();
       toast({ title: "Created todo successfully" });
     } catch (error) {
       console.error(error);
@@ -111,14 +111,16 @@ export default function TodoList() {
         description: "Please try again",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
     try {
       await todosService.deleteTodo(id);
-      await fetchData();
 
+      await fetchData();
       // setTodos((prev) => prev.filter((todo) => todo.id !== id));
       toast({ title: "Deleted todo successfully" });
     } catch (error) {
@@ -145,6 +147,7 @@ export default function TodoList() {
   };
 
   const openEditDialog = (todo: TodoType) => {
+    console.log(todo);
     setCurrentTodo(todo);
     setOpenEdit(true);
   };
@@ -153,6 +156,7 @@ export default function TodoList() {
     <div className="flex flex-col gap-10">
       {currentTodo && (
         <EditTodo
+          loading={loading}
           updateTodo={handleUpdate}
           todo={currentTodo}
           open={openEdit}
@@ -163,11 +167,14 @@ export default function TodoList() {
         handleCreate={handleCreate}
         filterTodos={filterTodos}
         sortTodos={sortTodos}
+        loading={loading}
       />
 
-      {loading && <Loader2 className="animate-spin self-center size-16" />}
+      {loading && !open && (
+        <Loader2 className="animate-spin self-center size-16" />
+      )}
 
-      {!loading && pagination && todos.length > 0 && (
+      {pagination && todos.length > 0 && (
         <>
           <div className="flex flex-col gap-5 justify-center items-center">
             {todos.map((todo) => (

@@ -17,14 +17,15 @@ export const authService = {
   },
 
   loginUser: async (user: Omit<User, "name">) => {
-    const res = await axios.post<User>(API_URL + "/login", user);
+    try {
+      const res = await axios.post<User>(API_URL + "/login", user);
 
-    if (res.status !== 200) {
-      throw new Error("Failed to login, try again");
+      // 100% wouldn't work for production environment and there's no time to create a backend
+      localStorage.setItem("auth", res.data.id!);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to login, user not found");
     }
-
-    // 100% wouldn't work for production environment and there's no time to create a backend
-    localStorage.setItem("auth", res.data.id!);
   },
 
   auth: () => {

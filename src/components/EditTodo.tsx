@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Todo } from "@/types";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import {
@@ -43,6 +43,7 @@ interface EditTodoProps {
   trigger?: ReactNode;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
 }
 
 export default function EditTodo({
@@ -52,9 +53,11 @@ export default function EditTodo({
   trigger,
   open,
   setOpen,
+  loading,
 }: EditTodoProps) {
   const editTodoSchema = todoSchema.omit(["status", "dueDate"]);
   const [date, setDate] = useState<Date>(new Date(todo.dueDate));
+  console.log(todo);
 
   const handleUpdate = async (values: InferType<typeof editTodoSchema>) => {
     try {
@@ -81,21 +84,31 @@ export default function EditTodo({
     setValues,
   } = useFormik({
     validationSchema: editTodoSchema,
-    initialValues: todo,
+    initialValues: { name: "", priority: 0, description: "" },
     onSubmit: handleUpdate,
   });
 
   useEffect(() => {
-    setValues(todo);
+    setValues({
+      name: todo.name,
+      description: todo.description,
+      priority: Number(todo.priority),
+    });
     setDate(new Date(todo.dueDate));
   }, [todo, setValues]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   resetForm();
+  // }, [open, resetForm]);
+
+  const reset = (v: boolean) => {
+    console.log("here");
     resetForm();
-  }, [open, resetForm]);
+    return setOpen(v);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={reset}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -190,7 +203,14 @@ export default function EditTodo({
             </Popover>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            {loading ? (
+              <Button disabled>
+                <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                Please wait...
+              </Button>
+            ) : (
+              <Button type="submit">Save changes</Button>
+            )}
           </DialogFooter>
         </form>
       </DialogContent>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { authService } from "./authService";
-import { Todo } from "@/types";
+import { PaginationType, Todo } from "@/types";
 
 const API_URL = "http://localhost:3000/users";
 
@@ -18,28 +18,23 @@ export const todosService = {
       throw new Error("Not authenticated");
     }
 
-    const res = await axios.get(genUrl(userId), {
-      params: {
-        status: status,
-        page: page,
-        limit: 3,
-        sort: sort,
+    const res = await axios.get<{ data: Todo[]; pagination: PaginationType }>(
+      genUrl(userId),
+      {
+        params: {
+          status: status,
+          page: page,
+          limit: 3,
+          sort: sort,
+        },
       },
-    });
+    );
 
     if (res.status !== 200) {
       throw new Error("Error happened while fetching tasks");
     }
 
-    const { data, first, items, last, next, pages, prev } = res.data;
-    const pagination = {
-      firstPage: first,
-      todoCount: items,
-      lastPage: last,
-      nextPage: next,
-      prevPage: prev,
-      totalPages: pages,
-    };
+    const { data, pagination } = res.data;
 
     return { data, pagination };
   },
@@ -97,7 +92,7 @@ export const todosService = {
       throw new Error("Error happened while marking task");
     }
 
-    return res.data
+    return res.data;
   },
 
   updateTodo: async (newTodo: Todo) => {

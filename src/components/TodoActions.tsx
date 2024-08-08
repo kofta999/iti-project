@@ -13,12 +13,14 @@ interface TodoActionsProps {
   handleCreate: (todo: Todo) => Promise<void>;
   filterTodos: (v: boolean | null) => void;
   sortTodos: (v: string | null) => void;
+  loading: boolean;
 }
 
 export default function TodoActions({
   handleCreate,
   filterTodos,
   sortTodos,
+  loading,
 }: TodoActionsProps) {
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center gap-10">
@@ -27,7 +29,7 @@ export default function TodoActions({
       </h1>
 
       <div className="flex flex-col gap-3">
-        <CreateTodo createTodo={handleCreate} />
+        <CreateTodo loading={loading} createTodo={handleCreate} />
         <div className="flex gap-3">
           <Select
             onValueChange={(v) =>

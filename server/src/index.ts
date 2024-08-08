@@ -65,7 +65,7 @@ app.post("/users/login", async (c) => {
   );
 
   if (!foundUser) {
-    return c.status(404);
+    return c.notFound();
   }
 
   return c.json(foundUser);
@@ -76,7 +76,7 @@ app.post("/users/login", async (c) => {
 app.get("/users/:id/todos", async (c) => {
   // await new Promise((r) => setTimeout(r, 2000));
   const userId = c.req.param("id");
-  const { page, perPage, status, sort } = c.req.query();
+  const { page = 1, perPage = 3, status, sort } = c.req.query();
   await db.read();
   let todos = db.data.todos.filter((todo) => todo.userId === userId);
 
@@ -96,12 +96,19 @@ app.get("/users/:id/todos", async (c) => {
     todos = todos.sort((a, b) => a.priority - b.priority);
   }
 
-  const pagination = calculatePagination(todos, Number(page), Number(perPage));
+  const pageNumber = Number(page);
+  const pageSize = Number(perPage);
+  const startIndex = (pageNumber - 1) * pageSize;
+
+  const pagination = calculatePagination(todos, pageNumber, pageSize);
+
+  todos = todos.slice(startIndex, startIndex + pageSize);
 
   return c.json({ data: todos, pagination });
 });
 
 app.post("/users/:id/todos", async (c) => {
+  await new Promise((r) => setTimeout(r, 2000));
   const todo = await c.req.json();
   const userId = c.req.param("id");
 
@@ -122,6 +129,7 @@ app.get("/users/:userId/todos/:todoId", async (c) => {
 });
 
 app.put("/users/:userId/todos/:todoId", async (c) => {
+  await new Promise((r) => setTimeout(r, 2000));
   const newTodo = await c.req.json();
   const { userId, todoId } = c.req.param();
 
