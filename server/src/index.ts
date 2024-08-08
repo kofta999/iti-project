@@ -43,7 +43,6 @@ app.use("*", cors());
 
 // Auth
 app.post("/users/register", async (c) => {
-  console.log("dada");
   const user = await c.req.json();
 
   const newUser = { ...user, id: v4() };
@@ -74,7 +73,7 @@ app.post("/users/login", async (c) => {
 // Todos
 
 app.get("/users/:id/todos", async (c) => {
-  await new Promise((r) => setTimeout(r, 1000));
+  await new Promise((r) => setTimeout(r, 500));
   const userId = c.req.param("id");
   const { page = 1, perPage = 3, status, sort } = c.req.query();
   await db.read();
@@ -108,7 +107,7 @@ app.get("/users/:id/todos", async (c) => {
 });
 
 app.post("/users/:id/todos", async (c) => {
-  await new Promise((r) => setTimeout(r, 2000));
+  await new Promise((r) => setTimeout(r, 500));
   const todo = await c.req.json();
   const userId = c.req.param("id");
 
@@ -129,7 +128,7 @@ app.get("/users/:userId/todos/:todoId", async (c) => {
 });
 
 app.put("/users/:userId/todos/:todoId", async (c) => {
-  await new Promise((r) => setTimeout(r, 2000));
+  await new Promise((r) => setTimeout(r, 500));
   const newTodo = await c.req.json();
   const { userId, todoId } = c.req.param();
 
@@ -146,7 +145,7 @@ app.put("/users/:userId/todos/:todoId", async (c) => {
 });
 
 app.delete("/users/:userId/todos/:todoId", async (c) => {
-  await new Promise((r) => setTimeout(r, 2000));
+  await new Promise((r) => setTimeout(r, 500));
   const { todoId } = c.req.param();
 
   const todos = db.data.todos.filter((todo) => todo.id !== todoId);

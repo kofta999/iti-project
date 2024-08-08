@@ -45,7 +45,9 @@ export default function Todo({
     <Card className="w-full sm:w-1/3">
       <CardHeader>
         <CardTitle className="flex gap-2 items-center mb-2">
-          <div className="mr-auto">{todo.name}</div>
+          <div className="mr-auto w-1/2 overflow-x-auto overflow-y-hidden">
+            {todo.name}
+          </div>
 
           <DeleteTodo
             todo={todo}
@@ -63,7 +65,9 @@ export default function Todo({
       </CardHeader>
 
       <CardContent>
-        <p className="text-muted-foreground">{todo.description}</p>
+        <p className="text-muted-foreground overflow-x-auto overflow-y-hidden">
+          {todo.description}
+        </p>
 
         <h4 className="text-right font-bold">
           Due {format(todo.dueDate, "MMM dd, yyyy")}
