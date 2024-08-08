@@ -170,7 +170,7 @@ export default function TodoList() {
               <Todo
                 handleDelete={handleDelete}
                 handleMark={handleMark}
-                setCurrent={openEditDialog}
+                openEditDialog={openEditDialog}
                 key={todo.id}
                 todo={todo}
               />
